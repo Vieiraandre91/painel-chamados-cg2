@@ -1,0 +1,476 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Chamados CG2 · Sungrow</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --plane:#eef1f5; --surface:#ffffff; --surface-2:#f7f9fb;
+  --ink:#0f1419; --ink-2:#4a5561; --muted:#77828e;
+  --line:#dae1e8; --line-soft:#e9eef3;
+  --accent:#2a78d6; --accent-soft:#dce9f9; --accent-2:#eb6834;
+  --good:#0ca30c; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --crit-soft:#f8e3e3; --warn-soft:#fbf1da;
+  --shadow:0 1px 2px rgba(15,20,25,.05), 0 1px 10px rgba(15,20,25,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --plane:#0c1014; --surface:#151b21; --surface-2:#1b2229;
+    --ink:#f2f5f8; --ink-2:#bcc6d1; --muted:#8c97a3;
+    --line:#28313a; --line-soft:#1f272e;
+    --accent:#4a93e8; --accent-soft:#1c2e45; --accent-2:#e0703f;
+    --good:#2fbb2f; --warn:#fab219; --serious:#ec835a; --crit:#e26060;
+    --crit-soft:#33201f; --warn-soft:#33290f;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --plane:#0c1014; --surface:#151b21; --surface-2:#1b2229;
+  --ink:#f2f5f8; --ink-2:#bcc6d1; --muted:#8c97a3;
+  --line:#28313a; --line-soft:#1f272e;
+  --accent:#4a93e8; --accent-soft:#1c2e45; --accent-2:#e0703f;
+  --good:#2fbb2f; --warn:#fab219; --serious:#ec835a; --crit:#e26060;
+  --crit-soft:#33201f; --warn-soft:#33290f;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--plane); color:var(--ink);
+  font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size:14px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:28px 20px 72px}
+
+h1,h2,h3{font-family:Archivo, system-ui, sans-serif; margin:0; text-wrap:balance; letter-spacing:-.01em}
+h1{font-size:26px; font-weight:700; line-height:1.15}
+h2{font-size:15px; font-weight:600}
+h3{font-size:13px; font-weight:600}
+.eyebrow{font-family:"IBM Plex Mono", monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--muted); font-weight:500}
+.lede{color:var(--ink-2); max-width:68ch; margin:10px 0 0}
+.mono{font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums}
+
+header.top{border-bottom:1px solid var(--line); padding-bottom:22px; margin-bottom:24px}
+.top-row{display:flex; flex-wrap:wrap; gap:16px; align-items:flex-end; justify-content:space-between}
+.stamp{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); text-align:right; line-height:1.7}
+
+/* KPI */
+.kpis{display:grid; gap:12px; grid-template-columns:repeat(3,1fr); margin-bottom:26px}
+@media (max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.kpis{grid-template-columns:1fr}}
+.kpi{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:14px 16px;
+  box-shadow:var(--shadow); position:relative; overflow:hidden}
+.kpi.flag::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--crit)}
+.kpi.warnflag::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--warn)}
+.kpi .lab{font-size:11.5px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:.06em}
+.kpi .val{font-family:Archivo, sans-serif; font-size:32px; font-weight:600; line-height:1.1; margin-top:6px}
+.kpi .val small{font-size:15px; font-weight:500; color:var(--ink-2); margin-left:3px}
+.kpi .sub{font-size:12px; color:var(--ink-2); margin-top:4px}
+
+/* cards */
+.grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); align-items:start}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:18px 18px 16px;
+  box-shadow:var(--shadow)}
+.card.wide{grid-column:1/-1}
+.card-head{display:flex; gap:12px; align-items:baseline; justify-content:space-between; margin-bottom:2px}
+.note{font-size:12px; color:var(--muted); margin:4px 0 16px; max-width:62ch}
+section{margin-top:26px}
+.sec-head{display:flex; align-items:baseline; gap:12px; margin:0 0 12px}
+
+/* column chart */
+.cols{display:flex; align-items:flex-end; gap:3px; height:150px; padding-top:14px;
+  border-bottom:1px solid var(--line); position:relative}
+.colwrap{flex:1; display:flex; flex-direction:column; justify-content:flex-end; height:100%;
+  gap:2px; cursor:default; min-width:0}
+.col{background:var(--accent); border-radius:3px 3px 0 0; min-height:0}
+.col.b{background:var(--accent-2); border-radius:0}
+.colwrap:hover .col{filter:brightness(1.12)}
+.colaxis{display:flex; gap:3px; margin-top:6px}
+.colaxis span{flex:1; font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--muted);
+  text-align:center; overflow:hidden; white-space:nowrap}
+.gridline{position:absolute; left:0; right:0; border-top:1px solid var(--line-soft); font-size:0}
+
+/* bar rows */
+.bars{display:flex; flex-direction:column; gap:9px}
+.bar{display:grid; grid-template-columns:1fr; gap:4px}
+.bar .top{display:flex; justify-content:space-between; gap:10px; align-items:baseline; font-size:12.5px}
+.bar .top b{font-weight:500}
+.bar .track{height:9px; background:var(--surface-2); border-radius:5px; overflow:hidden;
+  border:1px solid var(--line-soft)}
+.bar .fill{height:100%; background:var(--accent); border-radius:5px}
+.bar .fill.crit{background:var(--crit)}
+.bar .fill.warn{background:var(--warn)}
+.bar .num{font-family:"IBM Plex Mono",monospace; color:var(--ink-2); white-space:nowrap; font-size:12px}
+.bar .meta{font-size:11.5px; color:var(--muted)}
+.bars.two{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:9px 28px}
+
+/* stacked status bar */
+.stack{display:flex; gap:2px; height:26px; margin:8px 0 12px}
+.stack div{border-radius:3px; min-width:2px}
+.legend{display:flex; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--ink-2)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.dot{width:9px; height:9px; border-radius:2px; display:inline-block}
+
+/* pills */
+.pill{display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:500;
+  padding:2px 8px; border-radius:20px; border:1px solid var(--line); color:var(--ink-2);
+  background:var(--surface-2); white-space:nowrap}
+.pill.novo{border-color:var(--crit); color:var(--crit); background:var(--crit-soft)}
+.pill.aguardando{border-color:var(--warn); background:var(--warn-soft); color:var(--ink)}
+.pill.andamento{border-color:var(--accent); color:var(--accent); background:var(--accent-soft)}
+
+/* aging list */
+.aging{display:flex; flex-direction:column; gap:1px}
+.agrow{display:grid; grid-template-columns:66px 1fr 120px 74px; gap:12px; align-items:center;
+  padding:9px 6px; border-bottom:1px solid var(--line-soft)}
+.agrow:last-child{border-bottom:0}
+.agrow .id{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); font-weight:500}
+.agrow .ttl{font-size:12.5px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.agrow .ttl small{color:var(--muted)}
+.agrow .idle{text-align:right; font-family:"IBM Plex Mono",monospace; font-size:12.5px}
+.agrow .idle b{font-weight:600}
+.agrow .track{height:6px; background:var(--surface-2); border-radius:4px; overflow:hidden; border:1px solid var(--line-soft)}
+.agrow .track i{display:block; height:100%; background:var(--crit)}
+.agrow .track i.w{background:var(--warn)}
+.agrow .track i.n{background:var(--accent)}
+
+/* table */
+.tablebox{overflow:auto; max-height:640px; border:1px solid var(--line); border-radius:6px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:12px}
+thead th{position:sticky; top:0; background:var(--surface-2); text-align:left; font-weight:600;
+  color:var(--ink-2); padding:9px 10px; border-bottom:1px solid var(--line); white-space:nowrap;
+  font-size:11px; text-transform:uppercase; letter-spacing:.05em; z-index:2}
+tbody td{padding:8px 10px; border-bottom:1px solid var(--line-soft); vertical-align:top}
+tbody tr:hover{background:var(--surface-2)}
+td.n{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap}
+td.id{font-family:"IBM Plex Mono",monospace; font-weight:500}
+td.id a{color:var(--accent); text-decoration:none}
+td.id a:hover{text-decoration:underline}
+td.sub{max-width:300px}
+.flagcell{color:var(--crit); font-weight:600}
+.controls{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; align-items:center}
+button.f{font:inherit; font-size:12px; padding:5px 11px; border-radius:20px; cursor:pointer;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink-2)}
+button.f[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+button.f:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+.findings{display:flex; flex-direction:column; gap:0}
+.finding{display:grid; grid-template-columns:26px 1fr; gap:12px; padding:13px 0;
+  border-bottom:1px solid var(--line-soft)}
+.finding:last-child{border-bottom:0}
+.finding .mark{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--muted); padding-top:2px}
+.finding p{margin:3px 0 0; color:var(--ink-2); font-size:13px}
+.finding b.t{font-weight:600; color:var(--ink); font-size:13.5px}
+
+footer{margin-top:34px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+footer p{margin:0 0 6px; max-width:80ch}
+
+#tip{position:fixed; pointer-events:none; opacity:0; transition:opacity .1s; z-index:50;
+  background:var(--ink); color:var(--plane); padding:6px 9px; border-radius:4px; font-size:11.5px;
+  font-family:"IBM Plex Mono",monospace; max-width:280px; line-height:1.45; white-space:pre-line}
+@media (prefers-reduced-motion: reduce){*{transition:none!important; animation:none!important}}
+@media (max-width:640px){
+  .agrow{grid-template-columns:60px 1fr 70px; }
+  .agrow .track{display:none}
+  h1{font-size:22px}
+}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="top-row">
+    <div>
+      <div class="eyebrow">Complexo Fotovoltaico Caldeirão Grande II · Movidesk Sungrow</div>
+      <h1>Chamados abertos junto à Sungrow</h1>
+      <p class="lede">Base completa de <b>88 chamados</b> registrados na Central de Serviços da Sungrow
+      para a UFV Caldeirão Grande, de março de 2024 a agosto de 2026. Leitura orientada a tempo de
+      resposta, recorrência por equipamento e backlog em aberto.</p>
+    </div>
+    <div class="stamp">Extração: 31/08/2026<br>Fonte: sungrow.movidesk.com<br>88 chamados · 1.214 interações</div>
+  </div>
+</header>
+
+<div class="kpis" id="kpis"></div>
+
+<section>
+  <div class="sec-head"><h2>O que os dados mostram</h2></div>
+  <div class="card wide"><div class="findings" id="findings"></div></div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Tempo de resposta e situação</h2></div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-head"><h3>Tempo até a primeira resposta da Sungrow</h3></div>
+      <p class="note">Intervalo entre a primeira mensagem da IBITU e a primeira resposta de um agente
+      Sungrow no mesmo chamado. Mediana de 3,2 dias, mas cauda longa: 29 chamados passaram de 7 dias.</p>
+      <div class="bars" id="sla"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Situação atual dos 88 chamados</h3></div>
+      <p class="note">Metade da base segue aberta. “Aguardando” e “Novo” concentram os chamados sem
+      tratativa ativa da Sungrow.</p>
+      <div class="stack" id="statusStack"></div>
+      <div class="legend" id="statusLegend"></div>
+    </div>
+    <div class="card wide">
+      <div class="card-head"><h3>Chamados abertos por mês</h3>
+        <div class="legend"><span><i class="dot" style="background:var(--accent)"></i>Falha / problema técnico</span>
+        <span><i class="dot" style="background:var(--accent-2)"></i>Orçamento, dúvida e serviço</span></div></div>
+      <p class="note">Agosto de 2026 é o mês de maior abertura de toda a série (9 chamados), com
+      predominância de falhas técnicas.</p>
+      <div class="cols" id="vol"></div>
+      <div class="colaxis" id="volAxis"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Recorrência</h2></div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-head"><h3>Famílias de defeito</h3></div>
+      <p class="note">Classificação a partir do assunto e do serviço do chamado. A barra clara indica
+      quantos ainda estão em aberto.</p>
+      <div class="bars" id="def"></div>
+    </div>
+    <div class="card">
+      <div class="card-head"><h3>Inversores com chamados repetidos</h3></div>
+      <p class="note">Números de série com dois ou mais chamados — base para caracterizar defeito
+      recorrente por equipamento.</p>
+      <div class="bars" id="rec"></div>
+    </div>
+    <div class="card wide">
+      <div class="card-head"><h3>Peças acionadas em garantia</h3></div>
+      <p class="note">Código de peça informado no chamado. EA000080 (ventilador) aparece 10 vezes e
+      KN000832-1 (bobina de mínima tensão) 6 — juntos, metade de todas as solicitações de peça.</p>
+      <div class="bars two" id="pec"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Backlog — abertos sem movimentação</h2></div>
+  <div class="card wide">
+    <p class="note">Chamados em aberto ordenados por dias desde a última interação de qualquer parte.
+    Barra vermelha acima de 180 dias, amarela acima de 90.</p>
+    <div class="aging" id="aging"></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Base completa</h2></div>
+  <div class="controls" id="filters"></div>
+  <div class="tablebox">
+    <table>
+      <thead><tr>
+        <th>Ticket</th><th>Situação</th><th>Assunto</th><th>Família</th><th>Nº de série</th>
+        <th>Responsável</th><th>Abertura</th><th class="n">1ª resp.<br>(dias)</th>
+        <th>Última ação</th><th class="n">Duração<br>(dias)</th><th class="n">Sem mov.<br>(dias)</th>
+        <th class="n">Inter.</th><th class="n">Anexos</th><th>Peça</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p><b>Método.</b> Dados lidos da Central de Serviços da Sungrow (Movidesk) em 31/08/2026, sem
+  qualquer alteração nos chamados. A data de abertura é a da primeira ação registrada; a primeira
+  resposta é a primeira ação de agente Sungrow posterior à primeira mensagem da IBITU. Duração conta
+  até o fechamento ou até 31/08/2026, para os abertos.</p>
+  <p><b>Limitações.</b> O histórico de ações é devolvido pelo Movidesk em páginas de 50 registros:
+  nos chamados 92719, 156969, 157643, 170391 e 203679 as contagens de interação estão truncadas em
+  50 e as métricas de tempo desses cinco podem estar subestimadas. Datas formais de SLA contratual
+  não estão preenchidas nos chamados — os tempos aqui são medidos pelas ações registradas, não pelo
+  relógio de SLA do Movidesk.</p>
+</footer>
+</div>
+<div id="tip" role="status"></div>
+
+<script>
+const D = {"kpi": {"total": 88, "abertos": 44, "pct_abertos": 50, "med_resp": 3.2, "media_resp": 15.7, "resp_gt7": 29, "resp_gt30": 11, "sem_resposta": 10, "idade_med_abertos": 327, "parados180": 15, "med_fech": 68, "max_dur": 909, "anexos": 884, "interacoes": 1214}, "volume": [{"mes": "2024-03", "rot": "mar/24", "tec": 2, "outros": 0}, {"mes": "2024-04", "rot": "abr/24", "tec": 3, "outros": 0}, {"mes": "2024-05", "rot": "mai/24", "tec": 0, "outros": 0}, {"mes": "2024-06", "rot": "jun/24", "tec": 1, "outros": 0}, {"mes": "2024-07", "rot": "jul/24", "tec": 0, "outros": 0}, {"mes": "2024-08", "rot": "ago/24", "tec": 1, "outros": 0}, {"mes": "2024-09", "rot": "set/24", "tec": 1, "outros": 0}, {"mes": "2024-10", "rot": "out/24", "tec": 3, "outros": 0}, {"mes": "2024-11", "rot": "nov/24", "tec": 2, "outros": 0}, {"mes": "2024-12", "rot": "dez/24", "tec": 0, "outros": 0}, {"mes": "2025-01", "rot": "jan/25", "tec": 3, "outros": 1}, {"mes": "2025-02", "rot": "fev/25", "tec": 1, "outros": 1}, {"mes": "2025-03", "rot": "mar/25", "tec": 0, "outros": 0}, {"mes": "2025-04", "rot": "abr/25", "tec": 5, "outros": 1}, {"mes": "2025-05", "rot": "mai/25", "tec": 2, "outros": 2}, {"mes": "2025-06", "rot": "jun/25", "tec": 3, "outros": 1}, {"mes": "2025-07", "rot": "jul/25", "tec": 4, "outros": 2}, {"mes": "2025-08", "rot": "ago/25", "tec": 6, "outros": 1}, {"mes": "2025-09", "rot": "set/25", "tec": 2, "outros": 4}, {"mes": "2025-10", "rot": "out/25", "tec": 2, "outros": 0}, {"mes": "2025-11", "rot": "nov/25", "tec": 2, "outros": 3}, {"mes": "2025-12", "rot": "dez/25", "tec": 4, "outros": 2}, {"mes": "2026-01", "rot": "jan/26", "tec": 0, "outros": 1}, {"mes": "2026-02", "rot": "fev/26", "tec": 3, "outros": 1}, {"mes": "2026-03", "rot": "mar/26", "tec": 1, "outros": 0}, {"mes": "2026-04", "rot": "abr/26", "tec": 2, "outros": 0}, {"mes": "2026-05", "rot": "mai/26", "tec": 1, "outros": 0}, {"mes": "2026-06", "rot": "jun/26", "tec": 1, "outros": 0}, {"mes": "2026-07", "rot": "jul/26", "tec": 2, "outros": 2}, {"mes": "2026-08", "rot": "ago/26", "tec": 7, "outros": 2}], "status": [{"k": "Novo", "v": 8}, {"k": "Em atendimento", "v": 22}, {"k": "Aguardando", "v": 14}, {"k": "Resolvido", "v": 7}, {"k": "Fechado", "v": 37}], "defeitos": [{"k": "Ventilador (Fan-flt)", "v": 15, "ab": 3}, {"k": "Bobina de mínima / chave CA", "v": 11, "ab": 7}, {"k": "Orçamento / comercial", "v": 11, "ab": 10}, {"k": "Sensor / medição (Sample-flt, DC sensor)", "v": 8, "ab": 5}, {"k": "Fonte auxiliar / EPS / UPS", "v": 8, "ab": 3}, {"k": "Vazamento de óleo / transformador", "v": 6, "ab": 5}, {"k": "Outros", "v": 6, "ab": 1}, {"k": "Parametrização / firmware", "v": 5, "ab": 3}, {"k": "Dúvidas / dados / documentação", "v": 5, "ab": 0}, {"k": "Corrosão / estrutura / carcaça", "v": 5, "ab": 4}, {"k": "Indutor", "v": 2, "ab": 0}, {"k": "Logística / coleta", "v": 2, "ab": 0}, {"k": "Desbalanço de corrente (Current3 Unbalanced)", "v": 2, "ab": 2}, {"k": "Comunicação / monitoramento", "v": 2, "ab": 1}], "sla": [{"k": "Mesmo dia", "v": 21}, {"k": "1–3 dias", "v": 15}, {"k": "3–7 dias", "v": 10}, {"k": "7–30 dias", "v": 18}, {"k": "Mais de 30 dias", "v": 11}, {"k": "Sem resposta até hoje", "v": 10}], "recorr": [{"k": "A2241402615", "v": 4, "ab": 3, "defs": ["Comunicação / monitoramento", "Indutor", "Sensor / medição (Sample-flt, DC sensor)", "Vazamento de óleo / transformador"], "nums": ["222190", "187930", "143114", "143024"]}, {"k": "A2242121568", "v": 3, "ab": 2, "defs": ["Bobina de mínima / chave CA"], "nums": ["297367", "287973", "257999"]}, {"k": "A2241402613", "v": 3, "ab": 1, "defs": ["Fonte auxiliar / EPS / UPS", "Indutor", "Vazamento de óleo / transformador"], "nums": ["267324", "244998", "204345"]}, {"k": "A2242121565", "v": 3, "ab": 1, "defs": ["Bobina de mínima / chave CA", "Ventilador (Fan-flt)"], "nums": ["262140", "193296", "186216"]}, {"k": "A2242008636", "v": 3, "ab": 1, "defs": ["Corrosão / estrutura / carcaça", "Ventilador (Fan-flt)"], "nums": ["231345", "100929", "92725"]}, {"k": "A2241402541", "v": 3, "ab": 2, "defs": ["Bobina de mínima / chave CA", "Corrosão / estrutura / carcaça", "Outros"], "nums": ["205872", "196629", "176394"]}, {"k": "A2242710705", "v": 2, "ab": 2, "defs": ["Bobina de mínima / chave CA", "Fonte auxiliar / EPS / UPS"], "nums": ["292422", "191708"]}, {"k": "A2242121564", "v": 2, "ab": 1, "defs": ["Vazamento de óleo / transformador", "Ventilador (Fan-flt)"], "nums": ["270545", "156969"]}, {"k": "A2242710707", "v": 2, "ab": 1, "defs": ["Bobina de mínima / chave CA", "Sensor / medição (Sample-flt, DC sensor)"], "nums": ["234833", "100151"]}, {"k": "A2242505182", "v": 2, "ab": 1, "defs": ["Corrosão / estrutura / carcaça", "Fonte auxiliar / EPS / UPS"], "nums": ["219702", "196513"]}, {"k": "A2242505186", "v": 2, "ab": 2, "defs": ["Desbalanço de corrente (Current3 Unbalanced)"], "nums": ["203679", "92719"]}], "pecas": [{"k": "EA000080", "v": 10, "nums": ["270545", "247444", "230954", "226690", "207139", "193296", "191708", "186216", "183809", "175503"]}, {"k": "KN000832-1", "v": 6, "nums": ["296266", "262140", "257999", "205872", "204445", "203989"]}, {"k": "TJ000718", "v": 2, "nums": ["267324", "187930"]}, {"k": "BP005633", "v": 2, "nums": ["247891", "222190"]}, {"k": "KN000789", "v": 2, "nums": ["234833", "194267"]}, {"k": "HB000265", "v": 2, "nums": ["203679", "92719"]}, {"k": "KN000832", "v": 1, "nums": ["234436"]}, {"k": "FA004092", "v": 1, "nums": ["226966"]}, {"k": "FC027847", "v": 1, "nums": ["219702"]}, {"k": "WSL00079", "v": 1, "nums": ["196513"]}, {"k": "BP005632", "v": 1, "nums": ["191708"]}], "aging": [{"num": "111896", "st": "Aguardando", "idle": 584, "dur": 818, "subj": "UPS - External power supply", "defeito": "Fonte auxiliar / EPS / UPS", "serial": "A2242121967", "own": "(equipe Qualidade)", "lastActor": "CLI"}, {"num": "190494", "st": "Em atendimento", "idle": 363, "dur": 423, "subj": "Atualização de firmware e parâmetros dos inversores (Sungrow/ONS)", "defeito": "Parametrização / firmware", "serial": "", "own": "Fabio Bortoletto", "lastActor": "CLI"}, {"num": "207670", "st": "Em atendimento", "idle": 360, "dur": 362, "subj": "Orçamento", "defeito": "Orçamento / comercial", "serial": "", "own": "Augusto Gomes", "lastActor": "CLI"}, {"num": "225597", "st": "Em atendimento", "idle": 290, "dur": 290, "subj": "Ibitu - SOLAR CRUZEIRO - Orçamento", "defeito": "Orçamento / comercial", "serial": "", "own": "Augusto Gomes", "lastActor": "AG"}, {"num": "222190", "st": "Aguardando", "idle": 269, "dur": 304, "subj": "DC Sensor-err", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "serial": "A2241402615", "own": "Fernanda Almeida", "lastActor": "CLI"}, {"num": "193296", "st": "Aguardando", "idle": 269, "dur": 430, "subj": "Fan1-flt", "defeito": "Ventilador (Fan-flt)", "serial": "A2242121565", "own": "Fernanda Almeida", "lastActor": "CLI"}, {"num": "194267", "st": "Aguardando", "idle": 266, "dur": 426, "subj": "Sample-flt", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "serial": "A2242710712", "own": "Fernanda Almeida", "lastActor": "AG"}, {"num": "191708", "st": "Aguardando", "idle": 266, "dur": 439, "subj": "IHM", "defeito": "Fonte auxiliar / EPS / UPS", "serial": "A2242710705", "own": "Fernanda Almeida", "lastActor": "AG"}, {"num": "92725", "st": "Aguardando", "idle": 266, "dur": 909, "subj": "Defeito na estrutura do inversor", "defeito": "Corrosão / estrutura / carcaça", "serial": "A2242008636", "own": "Fernanda Almeida", "lastActor": "AG"}, {"num": "212950", "st": "Em atendimento", "idle": 258, "dur": 341, "subj": "Orçamento", "defeito": "Orçamento / comercial", "serial": "", "own": "Fabio Bortoletto", "lastActor": "CLI"}, {"num": "225516", "st": "Em atendimento", "idle": 233, "dur": 291, "subj": "Guilherme - Orçamento", "defeito": "Orçamento / comercial", "serial": "", "own": "Fabio Bortoletto", "lastActor": "AG"}, {"num": "203989", "st": "Aguardando", "idle": 220, "dur": 376, "subj": "Bobina de mínima", "defeito": "Bobina de mínima / chave CA", "serial": "A2242121567", "own": "Fernanda Almeida", "lastActor": "AG"}, {"num": "205872", "st": "Aguardando", "idle": 186, "dur": 370, "subj": "Bobina de mínima", "defeito": "Bobina de mínima / chave CA", "serial": "A2241402541", "own": "Fernanda Almeida", "lastActor": "CLI"}, {"num": "203679", "st": "Aguardando", "idle": 186, "dur": 382, "subj": "Current3 Unbalanced (desbalanço de corrente)", "defeito": "Desbalanço de corrente (Current3 Unbalanced)", "serial": "A2242505186", "own": "Fernanda Almeida", "lastActor": "CLI"}, {"num": "157643", "st": "Aguardando", "idle": 182, "dur": 460, "subj": "Orçamento (Emanuel)", "defeito": "Orçamento / comercial", "serial": "", "own": "Yngrid Zanardo", "lastActor": "CLI"}, {"num": "177152", "st": "Em atendimento", "idle": 154, "dur": 490, "subj": "DC fuse-flt", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "serial": "A2242008634", "own": "Miguel Vieira", "lastActor": "CLI"}, {"num": "229713", "st": "Em atendimento", "idle": 153, "dur": 272, "subj": "Orçamento relatório de comissionamento DAPR/D", "defeito": "Orçamento / comercial", "serial": "", "own": "Augusto Gomes", "lastActor": "CLI"}, {"num": "234833", "st": "Aguardando", "idle": 153, "dur": 245, "subj": "AC switch breaking", "defeito": "Bobina de mínima / chave CA", "serial": "A2242710707", "own": "Fernanda Almeida", "lastActor": "CLI"}, {"num": "219702", "st": "Aguardando", "idle": 96, "dur": 313, "subj": "Carcaça rachada/avariada", "defeito": "Corrosão / estrutura / carcaça", "serial": "A2242505182", "own": "Fernanda Almeida", "lastActor": "AG"}, {"num": "198666", "st": "Em atendimento", "idle": 63, "dur": 405, "subj": "CG1 - Sobressalentes Solar 2025", "defeito": "Orçamento / comercial", "serial": "", "own": "Augusto Gomes", "lastActor": "CLI"}, {"num": "196629", "st": "Em atendimento", "idle": 60, "dur": 398, "subj": "Corrosão", "defeito": "Corrosão / estrutura / carcaça", "serial": "A2241402541", "own": "Miguel Vieira", "lastActor": "CLI"}, {"num": "285191", "st": "Em atendimento", "idle": 52, "dur": 53, "subj": "Solicitação de COD, especificação e Orçamento", "defeito": "Orçamento / comercial", "serial": "", "own": "Augusto Gomes", "lastActor": "CLI"}, {"num": "287973", "st": "Novo", "idle": 41, "dur": 41, "subj": "[CGII_IBITU CG2-SU3.INV1.MOD2) - Falha de Chave desconectada CA (Bobina de mínima avariada)", "defeito": "Bobina de mínima / chave CA", "serial": "A2242121568", "own": "Miguel Vieira", "lastActor": "CLI"}, {"num": "247891", "st": "Aguardando", "idle": 25, "dur": 199, "subj": "Falha em inversor A2242121560", "defeito": "Outros", "serial": "A2242121560", "own": "Jose Mata", "lastActor": "AG"}, {"num": "156969", "st": "Em atendimento", "idle": 24, "dur": 595, "subj": "Sobretemperatura no enrolamento", "defeito": "Vazamento de óleo / transformador", "serial": "A2242121564", "own": "Matheus Silva", "lastActor": "CLI"}, {"num": "100392", "st": "Em atendimento", "idle": 24, "dur": 875, "subj": "Ctrol power supply-flt", "defeito": "Fonte auxiliar / EPS / UPS", "serial": "A2241402614", "own": "Matheus Silva", "lastActor": "CLI"}, {"num": "293181", "st": "Novo", "idle": 19, "dur": 20, "subj": "Ajustes dos parâmetros de potência Ativa e Reativa", "defeito": "Parametrização / firmware", "serial": "", "own": "Matheus Silva", "lastActor": "CLI"}, {"num": "143024", "st": "Em atendimento", "idle": 17, "dur": 671, "subj": "Falha de comunicação", "defeito": "Comunicação / monitoramento", "serial": "A2241402615", "own": "Matheus Silva", "lastActor": "CLI"}, {"num": "250552", "st": "Em atendimento", "idle": 13, "dur": 187, "subj": "Configuração Q(p) parâmetros", "defeito": "Parametrização / firmware", "serial": "", "own": "Jose Mata", "lastActor": "CLI"}, {"num": "143114", "st": "Em atendimento", "idle": 11, "dur": 672, "subj": "Vazamento de óleo no transformador", "defeito": "Vazamento de óleo / transformador", "serial": "A2241402615", "own": "Miguel Vieira", "lastActor": "AG"}, {"num": "292422", "st": "Em atendimento", "idle": 7, "dur": 24, "subj": "[CGII_IBITU CG7-SU2.INV2.MOD2) - Falha Chave desconectada CA", "defeito": "Bobina de mínima / chave CA", "serial": "A2242710705", "own": "Miguel Vieira", "lastActor": "CLI"}, {"num": "291268", "st": "Em atendimento", "idle": 7, "dur": 28, "subj": "Transformador CG5-SU4, CG3-SU1 e CG2-SU5 - Análise de rigidez dielétrica", "defeito": "Vazamento de óleo / transformador", "serial": "A2241402612", "own": "Miguel Vieira", "lastActor": "CLI"}, {"num": "244998", "st": "Em atendimento", "idle": 7, "dur": 208, "subj": "[CGII_IBITU - CG1-SU3] - Vazamento de óleo no transformador", "defeito": "Vazamento de óleo / transformador", "serial": "A2241402613", "own": "Miguel Vieira", "lastActor": "CLI"}, {"num": "294875", "st": "Novo", "idle": 7, "dur": 13, "subj": "[CGII_IBITU] - Solicitação de COD. do produto e especificação", "defeito": "Orçamento / comercial", "serial": "", "own": "Augusto Gomes", "lastActor": "CLI"}, {"num": "283692", "st": "Novo", "idle": 7, "dur": 59, "subj": "[CGII_IBITU CG1-SU2.INV2) - Falha na Placa PE4 COD 5161", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "serial": "A2241402472", "own": "Hugo Leite", "lastActor": "CLI"}, {"num": "297367", "st": "Novo", "idle": 4, "dur": 4, "subj": "[CGII_IBITU CG2-SU3.INV1.MOD2) - Falha no Disjuntor AC", "defeito": "Bobina de mínima / chave CA", "serial": "A2242121568", "own": "Diego Mariano dos Santos", "lastActor": "CLI"}, {"num": "296266", "st": "Aguardando", "idle": 4, "dur": 9, "subj": "[CGII_IBITU CG6-SU1.INV1.MOD1) - Falha Chave desconectada CA (Bobina de mínima tensão)", "defeito": "Bobina de mínima / chave CA", "serial": "A2242505183", "own": "Fernanda Almeida", "lastActor": "AG"}, {"num": "209398", "st": "Em atendimento", "idle": 4, "dur": 354, "subj": "PV pol-rev", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "serial": "A2242121559", "own": "Matheus Silva", "lastActor": "CLI"}, {"num": "170391", "st": "Em atendimento", "idle": 3, "dur": 473, "subj": "Orçamento (Emanuel, Francisco, Jéssica)", "defeito": "Orçamento / comercial", "serial": "", "own": "Talita Oliveira", "lastActor": "CLI"}, {"num": "293194", "st": "Novo", "idle": 3, "dur": 20, "subj": "[CGII_IBITU CG3-SU4.INV1.MOD2] - Falha no Ventilador MF1", "defeito": "Ventilador (Fan-flt)", "serial": "A2242121566", "own": "Miguel Vieira", "lastActor": "CLI"}, {"num": "293018", "st": "Novo", "idle": 3, "dur": 21, "subj": "[CGII_IBITU CG4-SU2.INV2.MOD2] - Falha no Ventilador MF1", "defeito": "Ventilador (Fan-flt)", "serial": "A2242008631", "own": "Matheus Silva", "lastActor": "CLI"}, {"num": "226966", "st": "Em atendimento", "idle": 3, "dur": 285, "subj": "Defeito na estrutura do inversor", "defeito": "Corrosão / estrutura / carcaça", "serial": "A2241402547", "own": "Fernanda Almeida", "lastActor": "CLI"}, {"num": "92719", "st": "Em atendimento", "idle": 0, "dur": 651, "subj": "Current3 Unbalanced (desbalanço de corrente)", "defeito": "Desbalanço de corrente (Current3 Unbalanced)", "serial": "A2242505186", "own": "Jose Mata", "lastActor": "CLI"}, {"num": "298073", "st": "Novo", "idle": 0, "dur": 0, "subj": "CG-6.4 Medições de temperatura transformador", "defeito": "Vazamento de óleo / transformador", "serial": "A2242946597", "own": "Miguel Vieira", "lastActor": "CLI"}], "tabela": [{"num": "298073", "st": "Novo", "defeito": "Vazamento de óleo / transformador", "subj": "CG-6.4 Medições de temperatura transformador", "serial": "A2242946597", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-08-31", "firstResp": "", "resp": null, "lastAct": "2026-08-31", "dur": 0, "idle": 0, "nA": 1, "nCli": 1, "nAg": 0, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "297367", "st": "Novo", "defeito": "Bobina de mínima / chave CA", "subj": "[CGII_IBITU CG2-SU3.INV1.MOD2) - Falha no Disjuntor AC", "serial": "A2242121568", "own": "Diego Mariano dos Santos", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-08-27", "firstResp": "", "resp": null, "lastAct": "2026-08-27", "dur": 4, "idle": 4, "nA": 1, "nCli": 1, "nAg": 0, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "296266", "st": "Aguardando", "defeito": "Bobina de mínima / chave CA", "subj": "[CGII_IBITU CG6-SU1.INV1.MOD1) - Falha Chave desconectada CA (Bobina de mínima tensão)", "serial": "A2242505183", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2026-08-22", "firstResp": "2026-08-25", "resp": 3.0, "lastAct": "2026-08-27", "dur": 9, "idle": 4, "nA": 5, "nCli": 3, "nAg": 2, "att": 3, "peca": "KN000832-1", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "294875", "st": "Novo", "defeito": "Orçamento / comercial", "subj": "[CGII_IBITU] - Solicitação de COD. do produto e especificação", "serial": "", "own": "Augusto Gomes", "team": "Service BD", "cat": "Dúvida", "created": "2026-08-18", "firstResp": "", "resp": null, "lastAct": "2026-08-24", "dur": 13, "idle": 7, "nA": 3, "nCli": 3, "nAg": 0, "att": 0, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "293194", "st": "Novo", "defeito": "Ventilador (Fan-flt)", "subj": "[CGII_IBITU CG3-SU4.INV1.MOD2] - Falha no Ventilador MF1", "serial": "A2242121566", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-08-11", "firstResp": "", "resp": null, "lastAct": "2026-08-28", "dur": 20, "idle": 3, "nA": 3, "nCli": 3, "nAg": 0, "att": 2, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "293181", "st": "Novo", "defeito": "Parametrização / firmware", "subj": "Ajustes dos parâmetros de potência Ativa e Reativa", "serial": "", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Solicitação de serviço", "created": "2026-08-11", "firstResp": "", "resp": null, "lastAct": "2026-08-12", "dur": 20, "idle": 19, "nA": 2, "nCli": 2, "nAg": 0, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "293018", "st": "Novo", "defeito": "Ventilador (Fan-flt)", "subj": "[CGII_IBITU CG4-SU2.INV2.MOD2] - Falha no Ventilador MF1", "serial": "A2242008631", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-08-10", "firstResp": "", "resp": null, "lastAct": "2026-08-28", "dur": 21, "idle": 3, "nA": 3, "nCli": 3, "nAg": 0, "att": 2, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "292422", "st": "Em atendimento", "defeito": "Bobina de mínima / chave CA", "subj": "[CGII_IBITU CG7-SU2.INV2.MOD2) - Falha Chave desconectada CA", "serial": "A2242710705", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-08-07", "firstResp": "2026-08-19", "resp": 12.5, "lastAct": "2026-08-24", "dur": 24, "idle": 7, "nA": 3, "nCli": 2, "nAg": 1, "att": 0, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "291268", "st": "Em atendimento", "defeito": "Vazamento de óleo / transformador", "subj": "Transformador CG5-SU4, CG3-SU1 e CG2-SU5 - Análise de rigidez dielétrica", "serial": "A2241402612", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-08-03", "firstResp": "2026-08-03", "resp": 0.1, "lastAct": "2026-08-24", "dur": 28, "idle": 7, "nA": 14, "nCli": 8, "nAg": 6, "att": 7, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "287973", "st": "Novo", "defeito": "Bobina de mínima / chave CA", "subj": "[CGII_IBITU CG2-SU3.INV1.MOD2) - Falha de Chave desconectada CA (Bobina de mínima avariada)", "serial": "A2242121568", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-07-21", "firstResp": "", "resp": null, "lastAct": "2026-07-21", "dur": 41, "idle": 41, "nA": 1, "nCli": 1, "nAg": 0, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "285311", "st": "Fechado", "defeito": "Dúvidas / dados / documentação", "subj": "Dúvidas de projeto", "serial": "", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Dúvida", "created": "2026-07-09", "firstResp": "2026-07-27", "resp": 18.0, "lastAct": "2026-08-05", "dur": 27, "idle": 26, "nA": 6, "nCli": 2, "nAg": 4, "att": 0, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "285191", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "Solicitação de COD, especificação e Orçamento", "serial": "", "own": "Augusto Gomes", "team": "Service BD", "cat": "Orçamento", "created": "2026-07-09", "firstResp": "2026-07-10", "resp": 0.9, "lastAct": "2026-07-10", "dur": 53, "idle": 52, "nA": 4, "nCli": 2, "nAg": 2, "att": 0, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "283692", "st": "Novo", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "[CGII_IBITU CG1-SU2.INV2) - Falha na Placa PE4 COD 5161", "serial": "A2241402472", "own": "Hugo Leite", "team": "Field Service", "cat": "Problema", "created": "2026-07-03", "firstResp": "", "resp": null, "lastAct": "2026-08-24", "dur": 59, "idle": 7, "nA": 5, "nCli": 5, "nAg": 0, "att": 3, "peca": "", "isopen": true, "capped": false, "urg": ""}, {"num": "277739", "st": "Fechado", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "DC switch abnormal", "serial": "A2242121562", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-06-09", "firstResp": "2026-06-10", "resp": 1.1, "lastAct": "2026-06-18", "dur": 9, "idle": 74, "nA": 7, "nCli": 3, "nAg": 3, "att": 9, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "270545", "st": "Resolvido", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2242121564", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2026-05-11", "firstResp": "2026-05-12", "resp": 1.0, "lastAct": "2026-05-14", "dur": 3, "idle": 109, "nA": 7, "nCli": 4, "nAg": 1, "att": 5, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "267324", "st": "Fechado", "defeito": "Indutor", "subj": "Indutor com problema", "serial": "A2241402613", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2026-04-28", "firstResp": "2026-06-11", "resp": 44.4, "lastAct": "2026-07-31", "dur": 94, "idle": 31, "nA": 8, "nCli": 5, "nAg": 1, "att": 7, "peca": "TJ000718", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "262140", "st": "Resolvido", "defeito": "Bobina de mínima / chave CA", "subj": "Bobina de mínima", "serial": "A2242121565", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2026-04-07", "firstResp": "2026-06-11", "resp": 65.1, "lastAct": "2026-06-17", "dur": 71, "idle": 75, "nA": 7, "nCli": 3, "nAg": 2, "att": 16, "peca": "KN000832-1", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "257999", "st": "Resolvido", "defeito": "Bobina de mínima / chave CA", "subj": "Bobina de mínima", "serial": "A2242121568", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2026-03-24", "firstResp": "2026-06-11", "resp": 79.3, "lastAct": "2026-06-17", "dur": 85, "idle": 75, "nA": 7, "nCli": 3, "nAg": 2, "att": 6, "peca": "KN000832-1", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "250552", "st": "Em atendimento", "defeito": "Parametrização / firmware", "subj": "Configuração Q(p) parâmetros", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Dúvida", "created": "2026-02-25", "firstResp": "2026-06-11", "resp": 106.2, "lastAct": "2026-08-18", "dur": 187, "idle": 13, "nA": 4, "nCli": 3, "nAg": 1, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "247891", "st": "Aguardando", "defeito": "Outros", "subj": "Falha em inversor A2242121560", "serial": "A2242121560", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-02-13", "firstResp": "2026-03-12", "resp": 27.0, "lastAct": "2026-08-06", "dur": 199, "idle": 25, "nA": 15, "nCli": 8, "nAg": 5, "att": 8, "peca": "BP005633", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "247444", "st": "Resolvido", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2242121563", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2026-02-12", "firstResp": "2026-02-19", "resp": 7.0, "lastAct": "2026-05-14", "dur": 91, "idle": 109, "nA": 9, "nCli": 4, "nAg": 3, "att": 4, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "244998", "st": "Em atendimento", "defeito": "Vazamento de óleo / transformador", "subj": "[CGII_IBITU - CG1-SU3] - Vazamento de óleo no transformador", "serial": "A2241402613", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2026-02-04", "firstResp": "2026-02-04", "resp": 0.1, "lastAct": "2026-08-24", "dur": 208, "idle": 7, "nA": 28, "nCli": 16, "nAg": 11, "att": 11, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "242273", "st": "Resolvido", "defeito": "Parametrização / firmware", "subj": "Configuração Q(p) parâmetros", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Dúvida", "created": "2026-01-26", "firstResp": "2026-06-11", "resp": 136.1, "lastAct": "2026-06-18", "dur": 143, "idle": 74, "nA": 9, "nCli": 6, "nAg": 3, "att": 0, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "235266", "st": "Fechado", "defeito": "Dúvidas / dados / documentação", "subj": "Solicitação de dados de temperatura e acionamento", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Dúvida", "created": "2025-12-30", "firstResp": "2026-01-19", "resp": 20.1, "lastAct": "2026-08-07", "dur": 220, "idle": 24, "nA": 6, "nCli": 3, "nAg": 3, "att": 0, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "234833", "st": "Aguardando", "defeito": "Bobina de mínima / chave CA", "subj": "AC switch breaking", "serial": "A2242710707", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-12-29", "firstResp": "2026-01-09", "resp": 10.9, "lastAct": "2026-03-31", "dur": 245, "idle": 153, "nA": 14, "nCli": 11, "nAg": 1, "att": 21, "peca": "KN000789", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "234436", "st": "Fechado", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "Sample-flt", "serial": "A2241402545", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-12-23", "firstResp": "2025-12-23", "resp": 0.0, "lastAct": "2026-01-16", "dur": 24, "idle": 227, "nA": 13, "nCli": 8, "nAg": 3, "att": 21, "peca": "KN000832", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "231345", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan1-flt", "serial": "A2242008636", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-12-09", "firstResp": "2025-12-09", "resp": 0.0, "lastAct": "2026-01-16", "dur": 38, "idle": 227, "nA": 4, "nCli": 2, "nAg": 2, "att": 1, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "230954", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2241402468", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2025-12-08", "firstResp": "2025-12-09", "resp": 1.1, "lastAct": "2026-01-16", "dur": 39, "idle": 227, "nA": 8, "nCli": 4, "nAg": 2, "att": 4, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "229713", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "Orçamento relatório de comissionamento DAPR/D", "serial": "", "own": "Augusto Gomes", "team": "Service BD", "cat": "Orçamento", "created": "2025-12-02", "firstResp": "", "resp": null, "lastAct": "2026-03-31", "dur": 272, "idle": 153, "nA": 3, "nCli": 3, "nAg": 0, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "226966", "st": "Em atendimento", "defeito": "Corrosão / estrutura / carcaça", "subj": "Defeito na estrutura do inversor", "serial": "A2241402547", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-11-19", "firstResp": "2025-12-01", "resp": 2.9, "lastAct": "2026-08-28", "dur": 285, "idle": 3, "nA": 7, "nCli": 3, "nAg": 4, "att": 3, "peca": "FA004092", "isopen": true, "capped": false, "urg": ""}, {"num": "226690", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan1-flt", "serial": "A2242008633", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2025-11-19", "firstResp": "2025-11-21", "resp": 2.0, "lastAct": "2026-01-16", "dur": 58, "idle": 227, "nA": 7, "nCli": 3, "nAg": 2, "att": 4, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "225836", "st": "Resolvido", "defeito": "Parametrização / firmware", "subj": "Configuração Q(p) parâmetros", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Dúvida", "created": "2025-11-16", "firstResp": "2026-01-19", "resp": 64.1, "lastAct": "2026-06-11", "dur": 207, "idle": 81, "nA": 7, "nCli": 5, "nAg": 2, "att": 8, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "225597", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "Ibitu - SOLAR CRUZEIRO - Orçamento", "serial": "", "own": "Augusto Gomes", "team": "Service BD", "cat": "Orçamento", "created": "2025-11-14", "firstResp": "", "resp": null, "lastAct": "2025-11-14", "dur": 290, "idle": 290, "nA": 1, "nCli": 0, "nAg": 1, "att": 0, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "225516", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "Guilherme - Orçamento", "serial": "", "own": "Fabio Bortoletto", "team": "Service BD", "cat": "Orçamento", "created": "2025-11-13", "firstResp": "", "resp": null, "lastAct": "2026-01-10", "dur": 291, "idle": 233, "nA": 2, "nCli": 0, "nAg": 2, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": ""}, {"num": "222190", "st": "Aguardando", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "DC Sensor-err", "serial": "A2241402615", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-10-31", "firstResp": "2025-11-07", "resp": 7.1, "lastAct": "2025-12-05", "dur": 304, "idle": 269, "nA": 9, "nCli": 4, "nAg": 3, "att": 8, "peca": "BP005633", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "219702", "st": "Aguardando", "defeito": "Corrosão / estrutura / carcaça", "subj": "Carcaça rachada/avariada", "serial": "A2242505182", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-10-22", "firstResp": "2025-10-24", "resp": 2.0, "lastAct": "2026-05-27", "dur": 313, "idle": 96, "nA": 14, "nCli": 5, "nAg": 7, "att": 13, "peca": "FC027847", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "214422", "st": "Fechado", "defeito": "Logística / coleta", "subj": "Recolha de materiais", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Solicitação de serviço", "created": "2025-09-30", "firstResp": "", "resp": null, "lastAct": "2025-10-10", "dur": 10, "idle": 325, "nA": 3, "nCli": 0, "nAg": 3, "att": 0, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "212950", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "Orçamento", "serial": "", "own": "Fabio Bortoletto", "team": "Service BD", "cat": "Orçamento", "created": "2025-09-24", "firstResp": "2025-10-08", "resp": 14.2, "lastAct": "2025-12-16", "dur": 341, "idle": 258, "nA": 5, "nCli": 3, "nAg": 2, "att": 2, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "209398", "st": "Em atendimento", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "PV pol-rev", "serial": "A2242121559", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-09-11", "firstResp": "2025-09-15", "resp": 4.2, "lastAct": "2026-08-27", "dur": 354, "idle": 4, "nA": 42, "nCli": 26, "nAg": 15, "att": 17, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "208813", "st": "Fechado", "defeito": "Outros", "subj": "Reclamação - resposta de ticket Nível 2", "serial": "", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Reclamação", "created": "2025-09-09", "firstResp": "2025-09-15", "resp": 6.2, "lastAct": "2025-11-14", "dur": 66, "idle": 290, "nA": 3, "nCli": 1, "nAg": 2, "att": 0, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "207670", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "Orçamento", "serial": "", "own": "Augusto Gomes", "team": "Service BD", "cat": "Orçamento", "created": "2025-09-03", "firstResp": "2025-09-05", "resp": 1.8, "lastAct": "2025-09-05", "dur": 362, "idle": 360, "nA": 3, "nCli": 2, "nAg": 1, "att": 0, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "207139", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2242121561", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-09-01", "firstResp": "2025-09-05", "resp": 3.8, "lastAct": "2025-09-19", "dur": 18, "idle": 346, "nA": 10, "nCli": 5, "nAg": 3, "att": 20, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "205841", "st": "Fechado", "defeito": "Dúvidas / dados / documentação", "subj": "Solicitação da senha do FTP para coleta de dados", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Dúvida", "created": "2025-08-26", "firstResp": "2025-10-07", "resp": 42.0, "lastAct": "2025-10-07", "dur": 42, "idle": 328, "nA": 2, "nCli": 1, "nAg": 1, "att": 0, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "205872", "st": "Aguardando", "defeito": "Bobina de mínima / chave CA", "subj": "Bobina de mínima", "serial": "A2241402541", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-08-26", "firstResp": "2025-08-27", "resp": 1.1, "lastAct": "2026-02-26", "dur": 370, "idle": 186, "nA": 10, "nCli": 6, "nAg": 2, "att": 2, "peca": "KN000832-1", "isopen": true, "capped": false, "urg": "Alta"}, {"num": "205420", "st": "Fechado", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "External power supply", "serial": "A2242710713", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-08-22", "firstResp": "2025-09-02", "resp": 10.8, "lastAct": "2025-09-09", "dur": 18, "idle": 356, "nA": 4, "nCli": 1, "nAg": 2, "att": 1, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "204345", "st": "Fechado", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "Relé de proteção MT", "serial": "A2241402613", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-08-20", "firstResp": "2025-08-27", "resp": 5.9, "lastAct": "2025-09-03", "dur": 14, "idle": 362, "nA": 5, "nCli": 1, "nAg": 3, "att": 1, "peca": "", "isopen": false, "capped": false, "urg": "Média"}, {"num": "203989", "st": "Aguardando", "defeito": "Bobina de mínima / chave CA", "subj": "Bobina de mínima", "serial": "A2242121567", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-08-20", "firstResp": "2025-08-20", "resp": 0.0, "lastAct": "2026-01-23", "dur": 376, "idle": 220, "nA": 12, "nCli": 6, "nAg": 4, "att": 4, "peca": "KN000832-1", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "204445", "st": "Fechado", "defeito": "Bobina de mínima / chave CA", "subj": "Disjuntor CA", "serial": "A0000000000", "own": "Nathalia Oliveira", "team": "Administrativo - PÓS", "cat": "Problema", "created": "2025-08-19", "firstResp": "2025-08-27", "resp": 8.0, "lastAct": "2025-08-27", "dur": 8, "idle": 369, "nA": 8, "nCli": 3, "nAg": 3, "att": 1, "peca": "KN000832-1", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "203679", "st": "Aguardando", "defeito": "Desbalanço de corrente (Current3 Unbalanced)", "subj": "Current3 Unbalanced (desbalanço de corrente)", "serial": "A2242505186", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-08-14", "firstResp": "2025-08-14", "resp": 0.0, "lastAct": "2026-02-26", "dur": 382, "idle": 186, "nA": 50, "nCli": 34, "nAg": 14, "att": 64, "peca": "HB000265", "isopen": true, "capped": true, "urg": "PROJETO - Garantia"}, {"num": "196629", "st": "Em atendimento", "defeito": "Corrosão / estrutura / carcaça", "subj": "Corrosão", "serial": "A2241402541", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-07-29", "firstResp": "2025-10-17", "resp": 8.2, "lastAct": "2026-07-02", "dur": 398, "idle": 60, "nA": 14, "nCli": 5, "nAg": 8, "att": 42, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "198666", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "CG1 - Sobressalentes Solar 2025", "serial": "", "own": "Augusto Gomes", "team": "Service BD", "cat": "Orçamento", "created": "2025-07-22", "firstResp": "", "resp": null, "lastAct": "2026-06-29", "dur": 405, "idle": 63, "nA": 4, "nCli": 3, "nAg": 1, "att": 1, "peca": "", "isopen": true, "capped": false, "urg": "Baixa"}, {"num": "196513", "st": "Resolvido", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "UPS", "serial": "A2242505182", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-07-10", "firstResp": "2025-07-14", "resp": 3.7, "lastAct": "2026-06-18", "dur": 343, "idle": 74, "nA": 25, "nCli": 7, "nAg": 8, "att": 6, "peca": "WSL00079", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "196112", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2242008630", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-07-10", "firstResp": "2025-07-11", "resp": 1.1, "lastAct": "2025-07-23", "dur": 13, "idle": 404, "nA": 10, "nCli": 5, "nAg": 3, "att": 2, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "190494", "st": "Em atendimento", "defeito": "Parametrização / firmware", "subj": "Atualização de firmware e parâmetros dos inversores (Sungrow/ONS)", "serial": "", "own": "Fabio Bortoletto", "team": "Service BD", "cat": "Solicitação de serviço", "created": "2025-07-04", "firstResp": "2025-09-01", "resp": 58.9, "lastAct": "2025-09-02", "dur": 423, "idle": 363, "nA": 3, "nCli": 2, "nAg": 1, "att": 0, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "194267", "st": "Aguardando", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "Sample-flt", "serial": "A2242710712", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-07-01", "firstResp": "2025-07-02", "resp": 0.9, "lastAct": "2025-12-08", "dur": 426, "idle": 266, "nA": 17, "nCli": 8, "nAg": 6, "att": 7, "peca": "KN000789", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "193296", "st": "Aguardando", "defeito": "Ventilador (Fan-flt)", "subj": "Fan1-flt", "serial": "A2242121565", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-06-27", "firstResp": "2025-07-17", "resp": 20.1, "lastAct": "2025-12-05", "dur": 430, "idle": 269, "nA": 9, "nCli": 4, "nAg": 2, "att": 3, "peca": "EA000080", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "191708", "st": "Aguardando", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "IHM", "serial": "A2242710705", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2025-06-18", "firstResp": "2025-12-04", "resp": 169.0, "lastAct": "2025-12-08", "dur": 439, "idle": 266, "nA": 13, "nCli": 7, "nAg": 2, "att": 4, "peca": "EA000080 e BP005632", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "191139", "st": "Fechado", "defeito": "Orçamento / comercial", "subj": "Orçamento de um (01) inversor completo SG3125HV-MV-30", "serial": "", "own": "Talita Oliveira", "team": "Administrativo - PÓS", "cat": "Orçamento", "created": "2025-06-16", "firstResp": "2025-07-11", "resp": 24.9, "lastAct": "2025-10-16", "dur": 122, "idle": 319, "nA": 11, "nCli": 4, "nAg": 4, "att": 3, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "187930", "st": "Fechado", "defeito": "Indutor", "subj": "Indutor com problema", "serial": "A2241402615", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-06-03", "firstResp": "2025-06-04", "resp": 0.3, "lastAct": "2026-01-16", "dur": 227, "idle": 227, "nA": 21, "nCli": 12, "nAg": 8, "att": 34, "peca": "TJ000718", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "157643", "st": "Aguardando", "defeito": "Orçamento / comercial", "subj": "Orçamento (Emanuel)", "serial": "", "own": "Yngrid Zanardo", "team": "Administrador", "cat": "Orçamento", "created": "2025-05-28", "firstResp": "2025-06-05", "resp": 0.1, "lastAct": "2026-03-02", "dur": 460, "idle": 182, "nA": 50, "nCli": 10, "nAg": 14, "att": 7, "peca": "", "isopen": true, "capped": true, "urg": "PROJETO - Garantia"}, {"num": "186216", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2242121565", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2025-05-23", "firstResp": "2025-06-03", "resp": 10.8, "lastAct": "2025-07-15", "dur": 53, "idle": 412, "nA": 13, "nCli": 9, "nAg": 3, "att": 13, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "170391", "st": "Em atendimento", "defeito": "Orçamento / comercial", "subj": "Orçamento (Emanuel, Francisco, Jéssica)", "serial": "", "own": "Talita Oliveira", "team": "Administrativo - PÓS", "cat": "Orçamento", "created": "2025-05-15", "firstResp": "2025-08-19", "resp": 1.1, "lastAct": "2026-08-28", "dur": 473, "idle": 3, "nA": 50, "nCli": 24, "nAg": 25, "att": 41, "peca": "", "isopen": true, "capped": true, "urg": "PROJETO - Garantia"}, {"num": "183809", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2241402474", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2025-05-13", "firstResp": "2025-05-14", "resp": 0.7, "lastAct": "2025-06-10", "dur": 28, "idle": 447, "nA": 23, "nCli": 12, "nAg": 10, "att": 31, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "177152", "st": "Em atendimento", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "DC fuse-flt", "serial": "A2242008634", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-04-28", "firstResp": "2025-05-20", "resp": 20.4, "lastAct": "2026-03-30", "dur": 490, "idle": 154, "nA": 8, "nCli": 5, "nAg": 3, "att": 9, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "178052", "st": "Fechado", "defeito": "Logística / coleta", "subj": "Coleta de peças danificadas", "serial": "", "own": "(equipe Logística)", "team": "Logística", "cat": "Solicitação de serviço", "created": "2025-04-15", "firstResp": "2025-04-25", "resp": 2.1, "lastAct": "2025-07-15", "dur": 91, "idle": 412, "nA": 21, "nCli": 12, "nAg": 9, "att": 16, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "176345", "st": "Fechado", "defeito": "Bobina de mínima / chave CA", "subj": "Bobina de mínima", "serial": "A2242121970", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-04-09", "firstResp": "2025-04-11", "resp": 1.8, "lastAct": "2025-07-11", "dur": 93, "idle": 416, "nA": 14, "nCli": 5, "nAg": 7, "att": 7, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "176354", "st": "Fechado", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "External power supply", "serial": "A2242710703", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2025-04-09", "firstResp": "2025-04-10", "resp": 0.8, "lastAct": "2025-07-15", "dur": 97, "idle": 412, "nA": 15, "nCli": 7, "nAg": 7, "att": 3, "peca": "", "isopen": false, "capped": false, "urg": "Média"}, {"num": "176394", "st": "Fechado", "defeito": "Outros", "subj": "Falha em inversor A2241402541", "serial": "A2241402541", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-04-09", "firstResp": "2025-06-03", "resp": 55.5, "lastAct": "2025-06-18", "dur": 70, "idle": 439, "nA": 8, "nCli": 3, "nAg": 3, "att": 1, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Comissionamento"}, {"num": "175503", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan1-flt", "serial": "A2242008635", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2025-04-08", "firstResp": "2025-04-09", "resp": 0.7, "lastAct": "2025-06-10", "dur": 63, "idle": 447, "nA": 18, "nCli": 9, "nAg": 8, "att": 5, "peca": "EA000080", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "167958", "st": "Fechado", "defeito": "Dúvidas / dados / documentação", "subj": "Consulta ciclo 2025 da manutenção bianual/anual do inversor e transformador/RMU", "serial": "", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Solicitação de Material técnico", "created": "2025-02-28", "firstResp": "2025-03-12", "resp": 6.8, "lastAct": "2025-03-20", "dur": 20, "idle": 529, "nA": 8, "nCli": 2, "nAg": 5, "att": 0, "peca": "", "isopen": false, "capped": false, "urg": "Baixa"}, {"num": "166865", "st": "Fechado", "defeito": "Vazamento de óleo / transformador", "subj": "Transformador MT - Vazamento de óleo", "serial": "A2241402473", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-02-26", "firstResp": "2025-02-26", "resp": 0.1, "lastAct": "2025-04-11", "dur": 44, "idle": 507, "nA": 13, "nCli": 4, "nAg": 7, "att": 4, "peca": "", "isopen": false, "capped": false, "urg": "Alta"}, {"num": "159038", "st": "Fechado", "defeito": "Outros", "subj": "Falha em inversor A2241402542", "serial": "A2241402542", "own": "Caroline Ferreira", "team": "Administrativo - PRÉ", "cat": "Problema", "created": "2025-01-20", "firstResp": "2025-01-21", "resp": 0.6, "lastAct": "2025-05-26", "dur": 126, "idle": 462, "nA": 22, "nCli": 11, "nAg": 11, "att": 3, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "158446", "st": "Fechado", "defeito": "Outros", "subj": "Falha em inversor A2241402543", "serial": "A2241402543", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-01-16", "firstResp": "2025-01-17", "resp": 1.1, "lastAct": "2025-10-07", "dur": 264, "idle": 328, "nA": 35, "nCli": 17, "nAg": 16, "att": 45, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "157765", "st": "Fechado", "defeito": "Dúvidas / dados / documentação", "subj": "Dúvidas de projeto", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Dúvida", "created": "2025-01-14", "firstResp": "2025-01-17", "resp": 0.3, "lastAct": "2025-02-24", "dur": 41, "idle": 553, "nA": 11, "nCli": 6, "nAg": 3, "att": 1, "peca": "", "isopen": false, "capped": false, "urg": "Baixa"}, {"num": "156969", "st": "Em atendimento", "defeito": "Vazamento de óleo / transformador", "subj": "Sobretemperatura no enrolamento", "serial": "A2242121564", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2025-01-13", "firstResp": "2025-01-16", "resp": 3.5, "lastAct": "2026-08-07", "dur": 595, "idle": 24, "nA": 50, "nCli": 24, "nAg": 24, "att": 57, "peca": "", "isopen": true, "capped": true, "urg": "PROJETO - Garantia"}, {"num": "92719", "st": "Em atendimento", "defeito": "Desbalanço de corrente (Current3 Unbalanced)", "subj": "Current3 Unbalanced (desbalanço de corrente)", "serial": "A2242505186", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2024-11-18", "firstResp": "2024-11-25", "resp": 6.6, "lastAct": "2026-08-31", "dur": 651, "idle": 0, "nA": 50, "nCli": 36, "nAg": 14, "att": 66, "peca": "HB000265", "isopen": true, "capped": true, "urg": "PROJETO - Garantia"}, {"num": "144794", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2242008632", "own": "(equipe Logística)", "team": "Logística", "cat": "Problema", "created": "2024-11-04", "firstResp": "2024-11-12", "resp": 7.2, "lastAct": "2025-06-10", "dur": 218, "idle": 447, "nA": 14, "nCli": 7, "nAg": 7, "att": 5, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "143024", "st": "Em atendimento", "defeito": "Comunicação / monitoramento", "subj": "Falha de comunicação", "serial": "A2241402615", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2024-10-29", "firstResp": "2024-11-08", "resp": 8.8, "lastAct": "2026-08-14", "dur": 671, "idle": 17, "nA": 16, "nCli": 6, "nAg": 8, "att": 4, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "143114", "st": "Em atendimento", "defeito": "Vazamento de óleo / transformador", "subj": "Vazamento de óleo no transformador", "serial": "A2241402615", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2024-10-28", "firstResp": "2024-10-30", "resp": 0.1, "lastAct": "2026-08-20", "dur": 672, "idle": 11, "nA": 38, "nCli": 16, "nAg": 20, "att": 31, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "140251", "st": "Fechado", "defeito": "Corrosão / estrutura / carcaça", "subj": "Corrosão", "serial": "A2242505184", "own": "Miguel Vieira", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2024-10-11", "firstResp": "2024-10-25", "resp": 10.3, "lastAct": "2024-12-26", "dur": 76, "idle": 613, "nA": 19, "nCli": 6, "nAg": 11, "att": 4, "peca": "", "isopen": false, "capped": false, "urg": "Média"}, {"num": "135522", "st": "Fechado", "defeito": "Outros", "subj": "Solicitação diversa", "serial": "", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2024-09-20", "firstResp": "2024-10-31", "resp": 30.7, "lastAct": "2024-11-25", "dur": 66, "idle": 644, "nA": 8, "nCli": 4, "nAg": 4, "att": 7, "peca": "", "isopen": false, "capped": false, "urg": "Baixa"}, {"num": "125839", "st": "Fechado", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "External power supply", "serial": "A0000000000", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2024-08-09", "firstResp": "2024-08-09", "resp": 0.1, "lastAct": "2026-08-24", "dur": 745, "idle": 7, "nA": 37, "nCli": 19, "nAg": 16, "att": 32, "peca": "", "isopen": false, "capped": false, "urg": "Média"}, {"num": "111896", "st": "Aguardando", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "UPS - External power supply", "serial": "A2242121967", "own": "(equipe Qualidade)", "team": "Qualidade", "cat": "Problema", "created": "2024-06-04", "firstResp": "2024-06-04", "resp": 0.1, "lastAct": "2025-01-24", "dur": 818, "idle": 584, "nA": 26, "nCli": 16, "nAg": 10, "att": 22, "peca": "", "isopen": true, "capped": false, "urg": "Baixa"}, {"num": "100929", "st": "Fechado", "defeito": "Ventilador (Fan-flt)", "subj": "Fan2-flt", "serial": "A2242008636", "own": "(equipe Qualidade)", "team": "Qualidade", "cat": "Problema", "created": "2024-04-10", "firstResp": "2024-04-11", "resp": 1.0, "lastAct": "2024-06-27", "dur": 78, "idle": 795, "nA": 33, "nCli": 21, "nAg": 12, "att": 15, "peca": "", "isopen": false, "capped": false, "urg": "Média"}, {"num": "100392", "st": "Em atendimento", "defeito": "Fonte auxiliar / EPS / UPS", "subj": "Ctrol power supply-flt", "serial": "A2241402614", "own": "Matheus Silva", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2024-04-08", "firstResp": "2025-08-07", "resp": 3.2, "lastAct": "2026-08-07", "dur": 875, "idle": 24, "nA": 24, "nCli": 13, "nAg": 9, "att": 23, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "100151", "st": "Fechado", "defeito": "Sensor / medição (Sample-flt, DC sensor)", "subj": "DSP-MDC com-flt", "serial": "A2242710707", "own": "Nathalia Oliveira", "team": "Administrativo - PRÉ", "cat": "Problema", "created": "2024-04-03", "firstResp": "2024-04-03", "resp": 0.1, "lastAct": "2025-02-25", "dur": 328, "idle": 552, "nA": 21, "nCli": 10, "nAg": 10, "att": 29, "peca": "", "isopen": false, "capped": false, "urg": "PROJETO - Garantia"}, {"num": "96936", "st": "Fechado", "defeito": "Comunicação / monitoramento", "subj": "Falha de comunicação", "serial": "", "own": "Jose Mata", "team": "Atendimento Central - Nível 2", "cat": "Problema", "created": "2024-03-20", "firstResp": "2024-03-20", "resp": 0.0, "lastAct": "2025-08-21", "dur": 519, "idle": 375, "nA": 15, "nCli": 5, "nAg": 8, "att": 2, "peca": "", "isopen": false, "capped": false, "urg": "Alta"}, {"num": "92725", "st": "Aguardando", "defeito": "Corrosão / estrutura / carcaça", "subj": "Defeito na estrutura do inversor", "serial": "A2242008636", "own": "Fernanda Almeida", "team": "Administrativo - VIP", "cat": "Problema", "created": "2024-03-05", "firstResp": "2024-03-07", "resp": 2.2, "lastAct": "2025-12-08", "dur": 909, "idle": 266, "nA": 23, "nCli": 12, "nAg": 10, "att": 14, "peca": "", "isopen": true, "capped": false, "urg": "PROJETO - Garantia"}], "geracao": "31/08/2026", "capped": ["203679", "170391", "157643", "156969", "92719"]};
+
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const e = document.createElement(t); if(c) e.className = c; if(h !== undefined) e.innerHTML = h; return e; };
+const nf = n => n.toLocaleString('pt-BR');
+
+/* tooltip */
+const tip = $('#tip');
+function bindTip(node, text){
+  node.addEventListener('mouseenter', e => { tip.textContent = text; tip.style.opacity = 1; });
+  node.addEventListener('mousemove', e => {
+    const r = tip.getBoundingClientRect();
+    tip.style.left = Math.min(e.clientX + 14, innerWidth - r.width - 12) + 'px';
+    tip.style.top = Math.max(8, e.clientY - r.height - 12) + 'px';
+  });
+  node.addEventListener('mouseleave', () => tip.style.opacity = 0);
+}
+
+/* KPIs */
+const K = D.kpi;
+const kpis = [
+  {lab:'Chamados na base', val:nf(K.total), sub:'mar/2024 – ago/2026 · 884 anexos'},
+  {lab:'Em aberto hoje', val:K.abertos, unit:'de 88', sub:K.pct_abertos + '% da base · idade mediana de ' + nf(K.idade_med_abertos) + ' dias', flag:'flag'},
+  {lab:'1ª resposta (mediana)', val:K.med_resp.toLocaleString('pt-BR'), unit:'dias', sub:'média de ' + K.media_resp.toLocaleString('pt-BR') + ' dias · ' + K.resp_gt30 + ' casos acima de 30 dias', flag:'warnflag'},
+  {lab:'Abertos sem resposta', val:K.sem_resposta, unit:'chamados', sub:'nunca respondidos por um agente Sungrow', flag:'flag'},
+  {lab:'Abertos parados +180 d', val:K.parados180, unit:'chamados', sub:'sem qualquer interação há mais de 6 meses', flag:'flag'},
+  {lab:'Encerramento (mediana)', val:nf(K.med_fech), unit:'dias', sub:'entre os 44 chamados já fechados ou resolvidos'},
+];
+kpis.forEach(k => {
+  const c = el('div', 'kpi ' + (k.flag || ''));
+  c.append(el('div', 'lab', k.lab));
+  c.append(el('div', 'val', k.val + (k.unit ? ' <small>' + k.unit + '</small>' : '')));
+  c.append(el('div', 'sub', k.sub));
+  $('#kpis').append(c);
+});
+
+/* findings */
+const findings = [
+  ['01', 'Metade da base segue aberta, com idade mediana de 327 dias',
+   'São 44 chamados em aberto — 8 “Novo”, 22 “Em atendimento” e 14 “Aguardando”. O mais antigo, o 92725 (defeito na estrutura do inversor), acumula 909 dias desde a abertura.'],
+  ['02', 'Dez chamados em aberto nunca receberam resposta de um agente Sungrow',
+   '298073, 297367, 294875, 293194, 293181, 293018, 287973 e 283692 (falhas técnicas) somados a 229713 e 198666 (orçamentos). O 283692 — falha na placa PE4 do CG1-SU2.INV2 — já são 59 dias com cinco mensagens da IBITU e nenhuma resposta.'],
+  ['03', 'A mediana de resposta é boa; a cauda é o problema',
+   '21 chamados foram respondidos no mesmo dia, mas 29 passaram de 7 dias e 11 passaram de 30. O extremo é o 191708 (IHM), com 169 dias até a primeira resposta.'],
+  ['04', 'Quinze chamados abertos estão há mais de 180 dias sem qualquer interação',
+   'O 111896 (UPS / fonte auxiliar) lidera com 584 dias parado. Vários deles carregam a etiqueta “ticket sem retorno” da própria Sungrow após envio de peça, o que fecha o fluxo dela sem fechar o chamado.'],
+  ['05', 'Seis inversores concentram chamados repetidos',
+   'A2241402615 aparece em 4 chamados (vazamento de óleo, falha de comunicação, DC Sensor-err e indutor). A2242121568, A2241402613, A2242121565, A2242008636 e A2241402541 aparecem em 3 cada — evidência direta de reincidência por equipamento.'],
+  ['06', 'Ventilador e bobina de mínima são as falhas seriais da usina',
+   '15 chamados de ventilador (Fan1/Fan2-flt) e 11 de bobina de mínima tensão / chave desconectada CA. Nas peças, EA000080 (10 acionamentos) e KN000832-1 (6) confirmam o padrão.'],
+  ['07', 'O desbalanço de corrente está em dois chamados que não fecham',
+   'O 92719 e o 203679, ambos no inversor A2242505186 (“Current3 Unbalanced”), somam 86 interações e 130 anexos. O 92719 segue “Em atendimento” desde nov/2024 e teve movimentação hoje.'],
+];
+findings.forEach(([m, t, p]) => {
+  const f = el('div', 'finding');
+  f.append(el('div', 'mark', m));
+  const b = el('div'); b.append(el('b', 't', t)); b.append(el('p', '', p)); f.append(b);
+  $('#findings').append(f);
+});
+
+/* SLA buckets */
+const slaMax = Math.max(...D.sla.map(s => s.v));
+D.sla.forEach(s => {
+  const crit = s.k.startsWith('Sem resposta') || s.k.startsWith('Mais de');
+  const b = el('div', 'bar');
+  b.append(el('div', 'top', '<b>' + s.k + '</b><span class="num">' + s.v + ' chamados</span>'));
+  const tr = el('div', 'track'); const fi = el('div', 'fill' + (crit ? ' crit' : ''));
+  fi.style.width = (100 * s.v / slaMax) + '%'; tr.append(fi); b.append(tr);
+  bindTip(b, s.k + '\n' + s.v + ' chamados (' + Math.round(100 * s.v / 88) + '% da base)');
+  $('#sla').append(b);
+});
+
+/* status stacked */
+const stColors = {'Novo':'var(--crit)', 'Em atendimento':'var(--accent)', 'Aguardando':'var(--warn)',
+  'Resolvido':'var(--good)', 'Fechado':'var(--muted)'};
+D.status.forEach(s => {
+  const d = el('div'); d.style.background = stColors[s.k]; d.style.flex = s.v;
+  bindTip(d, s.k + '\n' + s.v + ' chamados'); $('#statusStack').append(d);
+  $('#statusLegend').append(el('span', '', '<i class="dot" style="background:' + stColors[s.k] + '"></i>' + s.k + ' · <b>' + s.v + '</b>'));
+});
+
+/* volume columns */
+const vMax = Math.max(...D.volume.map(v => v.tec + v.outros));
+D.volume.forEach(v => {
+  const w = el('div', 'colwrap');
+  if (v.outros) { const o = el('div', 'col b'); o.style.height = (100 * v.outros / vMax) + '%'; w.append(o); }
+  if (v.tec) { const t = el('div', 'col'); t.style.height = (100 * v.tec / vMax) + '%'; w.append(t); }
+  bindTip(w, v.rot + '\n' + v.tec + ' falha(s) técnica(s)\n' + v.outros + ' orçamento/dúvida/serviço');
+  $('#vol').append(w);
+  $('#volAxis').append(el('span', '', v.mes.endsWith('-01') || v.mes.endsWith('-07') ? v.rot : ''));
+});
+
+/* defeitos */
+const dMax = D.defeitos[0].v;
+D.defeitos.forEach(d => {
+  const b = el('div', 'bar');
+  b.append(el('div', 'top', '<b>' + d.k + '</b><span class="num">' + d.v + (d.ab ? ' · ' + d.ab + ' aberto' + (d.ab > 1 ? 's' : '') : '') + '</span>'));
+  const tr = el('div', 'track');
+  const fi = el('div', 'fill'); fi.style.width = (100 * d.v / dMax) + '%';
+  fi.style.background = 'linear-gradient(to right, var(--accent) 0 ' + (100 * d.ab / d.v) + '%, var(--accent-soft) ' + (100 * d.ab / d.v) + '% 100%)';
+  tr.append(fi); b.append(tr);
+  bindTip(b, d.k + '\n' + d.v + ' chamados · ' + d.ab + ' em aberto');
+  $('#def').append(b);
+});
+
+/* recorrência */
+const rMax = D.recorr[0].v;
+D.recorr.forEach(r => {
+  const b = el('div', 'bar');
+  b.append(el('div', 'top', '<b class="mono">' + r.k + '</b><span class="num">' + r.v + ' chamados</span>'));
+  const tr = el('div', 'track'); const fi = el('div', 'fill' + (r.v >= 3 ? ' crit' : ''));
+  fi.style.width = (100 * r.v / rMax) + '%'; tr.append(fi); b.append(tr);
+  b.append(el('div', 'meta', r.defs.join(' · ')));
+  bindTip(b, r.k + '\nTickets: ' + r.nums.join(', ') + '\n' + r.ab + ' em aberto');
+  $('#rec').append(b);
+});
+
+/* peças */
+const pMax = D.pecas[0].v;
+D.pecas.forEach(p => {
+  const b = el('div', 'bar');
+  b.append(el('div', 'top', '<b class="mono">' + p.k + '</b><span class="num">' + p.v + '×</span>'));
+  const tr = el('div', 'track'); const fi = el('div', 'fill');
+  fi.style.width = (100 * p.v / pMax) + '%'; tr.append(fi); b.append(tr);
+  bindTip(b, p.k + '\nTickets: ' + p.nums.join(', '));
+  $('#pec').append(b);
+});
+
+/* aging */
+const aMax = D.aging[0].idle;
+const pillCls = s => s === 'Novo' ? 'novo' : s === 'Aguardando' ? 'aguardando' : 'andamento';
+D.aging.forEach(a => {
+  const row = el('div', 'agrow');
+  row.append(el('div', 'id', a.num));
+  row.append(el('div', 'ttl', a.subj + ' <small>· ' + a.defeito + (a.serial ? ' · ' + a.serial : '') + '</small>'));
+  const tr = el('div', 'track');
+  const i = el('i', a.idle > 180 ? '' : a.idle > 90 ? 'w' : 'n');
+  i.style.width = Math.max(2, 100 * a.idle / aMax) + '%'; tr.append(i); row.append(tr);
+  row.append(el('div', 'idle', '<b>' + nf(a.idle) + '</b> d'));
+  bindTip(row, 'Ticket ' + a.num + ' · ' + a.st + '\n' + a.idle + ' dias sem movimentação\n' + a.dur + ' dias desde a abertura\nÚltima ação: ' + (a.lastActor === 'CLI' ? 'IBITU' : a.lastActor === 'AG' ? 'Sungrow' : 'sistema') + '\nResponsável: ' + (a.own || '—'));
+  $('#aging').append(row);
+});
+
+/* tabela + filtros */
+let filt = 'todos';
+const FILTERS = [['todos', 'Todos (88)'], ['abertos', 'Em aberto (44)'], ['semresp', 'Sem resposta (10)'],
+  ['parados', 'Parados +180 d (15)'], ['tecnicos', 'Falhas técnicas (64)']];
+FILTERS.forEach(([k, lab]) => {
+  const b = el('button', 'f', lab); b.setAttribute('aria-pressed', k === 'todos');
+  b.onclick = () => { filt = k; document.querySelectorAll('#filters button').forEach(x => x.setAttribute('aria-pressed', 'false')); b.setAttribute('aria-pressed', 'true'); draw(); };
+  $('#filters').append(b);
+});
+function keep(t){
+  if (filt === 'abertos') return t.isopen;
+  if (filt === 'semresp') return t.isopen && t.resp === null && t.nCli > 0;
+  if (filt === 'parados') return t.isopen && t.idle > 180;
+  if (filt === 'tecnicos') return t.cat === 'Problema';
+  return true;
+}
+function draw(){
+  const tb = $('#tbody'); tb.innerHTML = '';
+  D.tabela.filter(keep).forEach(t => {
+    const tr = el('tr');
+    tr.innerHTML =
+      '<td class="id"><a href="https://sungrow.movidesk.com/Ticket/Edit/' + t.num + '" target="_blank" rel="noopener">' + t.num + '</a></td>' +
+      '<td><span class="pill ' + (t.isopen ? pillCls(t.st) : '') + '">' + t.st + '</span></td>' +
+      '<td class="sub">' + t.subj + (t.capped ? ' <span title="histórico truncado em 50 ações">†</span>' : '') + '</td>' +
+      '<td>' + t.defeito + '</td>' +
+      '<td class="id">' + (t.serial || '—') + '</td>' +
+      '<td>' + (t.own || '—') + '</td>' +
+      '<td class="n">' + t.created.split('-').reverse().join('/') + '</td>' +
+      '<td class="n' + (t.resp === null ? ' flagcell' : '') + '">' + (t.resp === null ? 'sem resp.' : t.resp.toLocaleString('pt-BR')) + '</td>' +
+      '<td class="n">' + t.lastAct.split('-').reverse().join('/') + '</td>' +
+      '<td class="n">' + nf(t.dur) + '</td>' +
+      '<td class="n' + (t.isopen && t.idle > 180 ? ' flagcell' : '') + '">' + (t.isopen ? nf(t.idle) : '—') + '</td>' +
+      '<td class="n">' + t.nA + '</td><td class="n">' + t.att + '</td>' +
+      '<td class="id">' + (t.peca || '—') + '</td>';
+    tb.append(tr);
+  });
+}
+draw();
+</script>
+</body></html>
